@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'ci-pipeline/**'
+      - 'CI-pipeline/**'
 
 jobs:
   terraform:
@@ -23,7 +23,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Terraform Init and Apply
-        working-directory: ci-pipeline
+        working-directory: CI-pipeline
         run: |
           terraform init
           terraform apply -auto-approve
