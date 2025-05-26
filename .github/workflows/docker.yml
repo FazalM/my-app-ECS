@@ -1,0 +1,38 @@
+name: Docker Build & Push
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'ci-pipeline/**'
+      - 'cd-pipeline/**'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Build and Push Docker image
+        run: |
+          docker build -t my-ecr-app-repo .
+          docker tag my-ecr-app-repo:latest ${{ secrets.REGISTRY }}:latest
+          docker push ${{ secrets.REGISTRY }}:latest
