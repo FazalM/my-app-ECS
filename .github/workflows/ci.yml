@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'CI-pipeline/**'
+      - 'ci-pipeline/**'
 
 jobs:
   terraform:
