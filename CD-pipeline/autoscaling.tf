@@ -6,8 +6,8 @@ resource "aws_ecs_cluster" "example_cluster" {
 # Launch Template for EC2 instances
 resource "aws_launch_template" "example_launch_template" {
   name_prefix   = "example-launch-template-"
-  image_id      = var.AMIS[var.AWS_REGION]
-  instance_type = "t2.micro"
+  image_id      = data.aws_ssm_parameter.ecs_ami.value
+  instance_type = "t2.small"
   key_name      = aws_key_pair.mykeypair.key_name
 
   iam_instance_profile {
@@ -18,7 +18,9 @@ resource "aws_launch_template" "example_launch_template" {
 #!/bin/bash
 echo ECS_CLUSTER=${aws_ecs_cluster.example_cluster.name} >> /etc/ecs/ecs.config
 EOF
-  )
+)
+
+
 
   network_interfaces {
     associate_public_ip_address = false
@@ -45,7 +47,7 @@ resource "aws_autoscaling_group" "example_autoscaling" {
   min_size                  = 2
   max_size                  = 2
   desired_capacity          = 2
-  health_check_grace_period = 300
+  health_check_grace_period = 500
   health_check_type         = "ELB"
   load_balancers            = [aws_elb.my-elb.name]
   force_delete              = true

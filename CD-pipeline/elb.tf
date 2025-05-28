@@ -8,6 +8,13 @@ resource "aws_elb" "my-elb" {
     lb_port           = 80
     lb_protocol       = "http"
   }
+  listener {
+    instance_port      = 80
+    instance_protocol  = "http"
+    lb_port            = 443
+    lb_protocol        = "https"
+    ssl_certificate_id = "arn:aws:acm:us-east-1:662348578823:certificate/c4cc625b-e4db-43b7-b76f-c4a25eb7b77f"
+  }
   health_check {
     healthy_threshold   = 2
     unhealthy_threshold = 2
@@ -18,7 +25,7 @@ resource "aws_elb" "my-elb" {
 
   cross_zone_load_balancing   = true
   connection_draining         = true
-  connection_draining_timeout = 400
+  connection_draining_timeout = 500
   tags = {
     Name = "my-elb"
   }
