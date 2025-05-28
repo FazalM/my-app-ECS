@@ -8,11 +8,12 @@ terraform {
   }
 }
 
-resource "aws_ecr_repository" "my_ecr_app_repo" {
-  name                 = "my-ecr-app-repo"
-  image_tag_mutability = "MUTABLE"
+resource "aws_cloudwatch_log_group" "ecs_log_group" {
+  name              = "/ecs/example-cluster"
+  retention_in_days = 7
 
-  image_scanning_configuration {
-    scan_on_push = true
+  tags = {
+    Name        = "ECS Log Group"
+    Environment = "dev"
   }
 }

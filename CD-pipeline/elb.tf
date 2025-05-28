@@ -1,7 +1,7 @@
 resource "aws_elb" "my-elb" {
   name            = "my-elb"
-  subnets         = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
-  security_groups = [aws_security_group.elb-securitygroup.id]
+  subnets         = data.terraform_remote_state.ci_pipeline.outputs.public_subnet_ids
+  security_groups = [data.terraform_remote_state.ci_pipeline.outputs.elb_sg_id]
   listener {
     instance_port     = 80
     instance_protocol = "http"
