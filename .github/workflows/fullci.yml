@@ -58,4 +58,4 @@ jobs:
 
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.REGISTRY }}/my-ecr-app-repo:latest
+          docker push ${{ secrets.REGISTRY }}:latest
