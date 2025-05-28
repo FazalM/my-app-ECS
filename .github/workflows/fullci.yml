@@ -54,7 +54,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t my-ecr-app-repo .
-          docker tag my-ecr-app-repo:latest ${{ secrets.REGISTRY }}/my-ecr-app-repo:latest
+          docker tag my-ecr-app-repo:latest ${{ secrets.REGISTRY }}:latest
 
       - name: Push Docker image to ECR
         run: |
