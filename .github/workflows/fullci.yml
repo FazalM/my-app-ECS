@@ -62,7 +62,7 @@ jobs:
           docker push ${{ secrets.REGISTRY }}:${{ env.IMAGE_TAG }}
 
   cd_pipeline:
-    needs: docker  # Optional: wait for Docker step to finish before running
+    needs: docker  
     runs-on: ubuntu-latest
     steps:
       - name: Setup Terraform
