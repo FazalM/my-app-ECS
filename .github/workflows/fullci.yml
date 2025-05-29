@@ -55,7 +55,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t my-ecr-app-repo .
+          docker build -t my-ecr-app-repo:${{ env.IMAGE_TAG }} .
           docker tag my-ecr-app-repo:${{ env.IMAGE_TAG }} ${{ secrets.REGISTRY }}:${{ env.IMAGE_TAG }}
 
       - name: Push Docker image to ECR
