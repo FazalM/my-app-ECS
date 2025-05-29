@@ -24,3 +24,9 @@ variable "bucket_name" {
   type        = string
   default = "fm-my-unique-terraform-bucket-2025"
 }
+
+variable "image_tag" {
+  description = "Docker image tag to deploy"
+  type        = string
+}
+

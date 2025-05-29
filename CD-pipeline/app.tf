@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "my_task" {
   container_definitions = jsonencode([
     {
       name  = "my-container"
-      image = data.terraform_remote_state.ci_pipeline.outputs.repository_uri
+      image = "${data.terraform_remote_state.ci_pipeline.outputs.repository_uri}:${var.image_tag}"
       essential = true
 
       portMappings = [
