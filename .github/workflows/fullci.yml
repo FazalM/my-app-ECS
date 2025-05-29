@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'cd-pipeline/**'  # You can remove this if you want the CD pipeline to trigger on changes
+    paths:
+      - '**'
 
 env:
   IMAGE_TAG: ${{ github.sha }}
