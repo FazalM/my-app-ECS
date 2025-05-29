@@ -7,7 +7,7 @@ variable "PATH_TO_PRIVATE_KEY" {
 }
 
 variable "PATH_TO_PUBLIC_KEY" {
-  default = "/users/fazal/.ssh/ecskey.pub"
+  default = "../ecskey.pub"
 }
 
 variable "AMIS" {
